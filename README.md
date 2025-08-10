@@ -6,8 +6,6 @@ This repository shows how I would customise **Microsoft Dynamics 365** (Datavers
 - Customer segmentation (rules-based) for B2B/B2C
 - Real-time marketing journeys and reporting in Power BI
 
-> Status: Initial scaffold created on 2025-08-10 with realistic examples and placeholders you can adapt to your tenant.
-
 ## Repository structure
 - **/flows** — Example **Power Automate** flows (HTTP ingest, lead scoring update)
 - **/api** — **Dataverse Web API** examples for create/update/query
