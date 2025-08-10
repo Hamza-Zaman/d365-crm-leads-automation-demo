@@ -1,0 +1,29 @@
+### Dataverse Web API examples (use VS Code REST Client or Postman)
+
+# Create a Lead
+POST https://{org}.crm.dynamics.com/api/data/v9.2/leads
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "subject": "Website contact",
+  "firstname": "Alex",
+  "lastname": "Smith",
+  "emailaddress1": "alex.smith@example.com",
+  "hmz_utm_source": "google",
+  "hmz_utm_medium": "cpc",
+  "hmz_utm_campaign": "summer_sale",
+  "hmz_consentstatus": 1,
+  "hmz_leadscore": 25
+}
+
+### Update Lead score
+PATCH https://{org}.crm.dynamics.com/api/data/v9.2/leads({lead_guid})
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{ "hmz_leadscore": 60 }
+
+### Query high-intent segment candidates
+GET https://{org}.crm.dynamics.com/api/data/v9.2/leads?$select=fullname,hmz_leadscore,hmz_utm_source&$filter=hmz_leadscore ge 70
+Authorization: Bearer {{token}}

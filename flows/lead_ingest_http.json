@@ -1,0 +1,73 @@
+{
+  "definition": {
+    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2019-05-01/workflowdefinition.json#",
+    "actions": {
+      "Create_Lead_in_Dataverse": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+          },
+          "parameters": {
+            "entityName": "leads",
+            "item": {
+              "subject": "@{triggerBody()?['subject']}",
+              "firstname": "@{triggerBody()?['firstName']}",
+              "lastname": "@{triggerBody()?['lastName']}",
+              "emailaddress1": "@{triggerBody()?['email']}",
+              "hmz_utm_source": "@{triggerBody()?['utm_source']}",
+              "hmz_utm_medium": "@{triggerBody()?['utm_medium']}",
+              "hmz_utm_campaign": "@{triggerBody()?['utm_campaign']}",
+              "hmz_consentstatus": "@{triggerBody()?['consent']}",
+              "hmz_leadscore": 10
+            }
+          },
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "CreateNewRecord"
+        },
+        "runAfter": {}
+      }
+    },
+    "triggers": {
+      "manual": {
+        "type": "Request",
+        "kind": "Http",
+        "inputs": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "subject": {
+                "type": "string"
+              },
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "utm_source": {
+                "type": "string"
+              },
+              "utm_medium": {
+                "type": "string"
+              },
+              "utm_campaign": {
+                "type": "string"
+              },
+              "consent": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "email"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "kind": "Stateful"
+}

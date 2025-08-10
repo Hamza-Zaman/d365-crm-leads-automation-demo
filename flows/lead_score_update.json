@@ -1,0 +1,42 @@
+{
+  "definition": {
+    "actions": {
+      "ListRecentInteractions": {
+        "type": "OpenApiConnection",
+        "inputs": {},
+        "runAfter": {}
+      },
+      "UpdateLeadScore": {
+        "type": "OpenApiConnection",
+        "inputs": {
+          "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+          },
+          "parameters": {
+            "entityName": "leads",
+            "recordId": "@{items('Apply_to_each')?['leadid']}",
+            "item": {
+              "hmz_leadscore": "@add( triggerBody()?['score'], 10 )"
+            }
+          },
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "UpdateRecord"
+        },
+        "runAfter": {
+          "ListRecentInteractions": [
+            "Succeeded"
+          ]
+        }
+      }
+    },
+    "triggers": {
+      "EveryDay": {
+        "type": "Recurrence",
+        "recurrence": {
+          "frequency": "Day",
+          "interval": 1
+        }
+      }
+    }
+  }
+}
